@@ -577,3 +577,24 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     run_server(host=args.host, port=args.port, reload=args.reload)
+    # Adicione após as outras rotas/endpoints
+@app.get("/health")
+async def health_check():
+    """Health check endpoint para Docker/Easypanel"""
+    return {
+        "status": "healthy", 
+        "message": "N8N Workflows API está funcionando",
+        "timestamp": "2025-10-02"
+    }
+
+@app.get("/")
+async def root():
+    """Endpoint principal - mostra que API está funcionando"""
+    return {
+        "message": "🚀 N8N Workflows Search API",
+        "status": "running",
+        "workflows_indexed": "2057",
+        "health": "/health",
+        "docs": "/docs",
+        "search": "/api/workflows"
+    }
