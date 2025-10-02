@@ -38,8 +38,8 @@ RUN mkdir -p database static logs && \
 USER appuser
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/api/stats || exit 1
+HEALTHCHECK --start-period=180s --interval=30s --timeout=10s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1
 
 # Expose port
 EXPOSE 8000
